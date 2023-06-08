@@ -1,5 +1,10 @@
 #!/bin/bash
 
+redcolor='\033[0;31m'
+greencolor='\033[0;32m'
+yellowcolor='\033[0;33m'
+nocolor='\033[0m'
+
 function announce() {
 	echo "${1} | ${2}"
 }
