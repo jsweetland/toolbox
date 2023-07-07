@@ -5,11 +5,21 @@ yellowcolor='\033[0;33m'
 nocolor='\033[0;m'
 
 # special characters
-stepmain=" ▶"
-tabgap="    "
-stepsub="${tabgap}▷"
+leadspace=" "
+midspace=" "
+tabgap="   "
+filled_trimark=▶
+empty_trimark=▷
 checkmark=✔
 xmark=✗
+bulletmark=•
+stepmain="${leadspace}${filled_trimark}${midspace}"
+stepsub="${leadspace}${tabgap}${empty_trimark}${midspace}"
+stepsuccess="${leadspace}${checkmark}${midspace}"
+stepfailure="${leadspace}${xmark}${midspace}"
+steperror="${stepfailure}ERROR: "
+stepnotice="${leadspace}${bulletmark}${midspace}"
+ellipses=" ... "
 
 # function to verify a binary is available
 function verify_bin_path() {
@@ -25,11 +35,11 @@ function verify_bin_path() {
 
 # function to print a main step
 function print_step() {
-  echo -e "${greencolor}${stepmain} ${1} ... ${nocolor}"
+  echo -e "${greencolor}${stepmain}${1}${ellipses}${nocolor}"
 }
 
 function print_substep_and_wait() {
-  echo -ne "${greencolor}${stepsub} ${1} ... ${nocolor}"
+  echo -ne "${greencolor}${stepsub}${1}${ellipses}${nocolor}"
 }
 
 function substep_wait_passed() {
@@ -41,12 +51,12 @@ function substep_wait_failed() {
 }
 
 function print_substep() {
-  print_substep_and_wait $1
+  print_substep_and_wait "$1"
   echo ""
 }
 
 function print_error() {
-  echo -e "${redcolor}ERROR: ${1}${nocolor}" > /dev/stderr
+  echo -e "${redcolor}${steperror}${1}${nocolor}" > /dev/stderr
 }
 
 function print_error_and_exit() {
@@ -61,7 +71,7 @@ function print_error_and_exit() {
 }
 
 function print_notice() {
-  echo -e "${yellowcolor}${1}${nocolor}"
+  echo -e "${yellowcolor}${stepnotice}${1}${nocolor}"
 }
 
 function print_subnotice() {
@@ -70,4 +80,12 @@ function print_subnotice() {
 
 function print_subsubnotice() {
   print_subnotice "${tabgap}${1}"
+}
+
+function print_success() {
+  echo -e "${greencolor}${stepsuccess}${1}${nocolor}"
+}
+
+function print_failure() {
+  echo -e "${redcolor}${stepfailure}${1}${nocolor}"
 }
