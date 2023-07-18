@@ -66,7 +66,7 @@ function print_error_and_exit() {
     exitcode=${2}
   fi
 
-  print_error ${1}
+  print_error "${1}"
   exit ${exitcode}
 }
 
