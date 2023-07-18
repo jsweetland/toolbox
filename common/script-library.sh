@@ -35,28 +35,28 @@ function verify_bin_path() {
 
 # function to print a main step
 function print_step() {
-  echo -e "${greencolor}${stepmain}${1}${ellipses}${nocolor}"
+  printf '%b%s%s%s%b\n' "${greencolor}" "${stepmain}" "${1}" "${ellipses}" "${nocolor}"
 }
 
 function print_substep_and_wait() {
-  echo -ne "${greencolor}${stepsub}${1}${ellipses}${nocolor}"
+  printf '%b%s%s%s%b' "${greencolor}" "${stepsub}" "${1}" "${ellipses}" "${nocolor}"
 }
 
 function substep_wait_passed() {
-  echo -e "${greencolor}${checkmark}${nocolor}"
+  printf '%b%s%b\n' "${greencolor}" "${checkmark}" "${nocolor}"
 }
 
 function substep_wait_failed() {
-  echo -e "${redcolor}${xmark}${nocolor}"
+  printf '%b%s%b\n' "${redcolor}" "${xmark}" "${nocolor}"
 }
 
 function print_substep() {
   print_substep_and_wait "$1"
-  echo ""
+  printf '\n'
 }
 
 function print_error() {
-  echo -e "${redcolor}${steperror}${1}${nocolor}" > /dev/stderr
+  printf '%b%s%s%b\n' "${redcolor}" "${steperror}" "${1}" "${nocolor}" > /dev/stderr
 }
 
 function print_error_and_exit() {
@@ -71,7 +71,7 @@ function print_error_and_exit() {
 }
 
 function print_notice() {
-  echo -e "${yellowcolor}${stepnotice}${1}${nocolor}"
+  printf '%b%s%s%b\n' "${yellowcolor}" "${stepnotice}" "${1}" "${nocolor}"
 }
 
 function print_subnotice() {
@@ -83,9 +83,9 @@ function print_subsubnotice() {
 }
 
 function print_success() {
-  echo -e "${greencolor}${stepsuccess}${1}${nocolor}"
+  printf '%b%s%s%b\n' "${greencolor}" "${stepsuccess}" "${1}" "${nocolor}"
 }
 
 function print_failure() {
-  echo -e "${redcolor}${stepfailure}${1}${nocolor}"
+  printf '%b%s%s%b\n' "${redcolor}" "${stepfailure}" "${1}" "${nocolor}"
 }
